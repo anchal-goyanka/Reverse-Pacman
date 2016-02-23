@@ -14,8 +14,6 @@
 
 from game import Agent
 from game import Directions
-
-#from pacman import GameState as state
 import random
 
 class KeyboardAgent(Agent):
@@ -36,39 +34,27 @@ class KeyboardAgent(Agent):
         self.keys = []
 
     def getAction( self, state):
-	print self.index
         from graphicsUtils import keys_waiting
         from graphicsUtils import keys_pressed
         keys = keys_waiting() + keys_pressed()
-	
-	#print self.index, keys
         if keys != []:
             self.keys = keys
 
         legal = state.getLegalActions(self.index)
-	print legal
-	move = self.getMove(legal)
-	if self.index == 0:
-	    #print legal,'legal'
-	    #print random.choice(legal)
-	    #print self.keys, 'keys'
-	    print random.choice(legal), 'rand'
-	    return random.choice(legal)
-	    
-	else:
-	    print state.getGhostPosition(self.index)
-	    if move == Directions.STOP:     #when keys = [] (keys is empty, i.e no input from the user)
+        move = self.getMove(legal)
+
+        if move == Directions.STOP:
             # Try to move in the same direction as before
-                if self.lastMove in legal:
-                    move = self.lastMove
+            if self.lastMove in legal:
+                move = self.lastMove
 
-            if (self.STOP_KEY in self.keys) and Directions.STOP in legal: move = Directions.STOP
+        if (self.STOP_KEY in self.keys) and Directions.STOP in legal: move = Directions.STOP
 
-            if move not in legal:
-                move = random.choice(legal)
+        if move not in legal:
+            move = random.choice(legal)
 
-            self.lastMove = move
-            return move
+        self.lastMove = move
+        return move
 
     def getMove(self, legal):
         move = Directions.STOP
@@ -96,3 +82,4 @@ class KeyboardAgent2(KeyboardAgent):
         if   (self.NORTH_KEY in self.keys) and Directions.NORTH in legal:   move = Directions.NORTH
         if   (self.SOUTH_KEY in self.keys) and Directions.SOUTH in legal: move = Directions.SOUTH
         return move
+

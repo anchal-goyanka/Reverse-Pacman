@@ -30,7 +30,7 @@ import sys
 #######################
 
 ghosts_in_action = {}
-ghosts_at_rest = []
+#ghosts_at_rest = []
 #for i in range(1,len(numGhosts)):
 #   ghosts_at_rest.append(i)
 ghosts_at_rest = [1,2,3,4]
